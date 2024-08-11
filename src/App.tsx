@@ -7,8 +7,9 @@ import './styles/App.css';
 
 const App: React.FC = () => {
   const { users, loading } = useFetchUsers();
-  const photos = useFetchPhotos();
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+
+  const photos = useFetchPhotos(selectedUserId); // Fetch photos based on selected customer
 
   const selectedUser = selectedUserId !== null
     ? users.find(user => user.id === selectedUserId)
@@ -34,7 +35,7 @@ const App: React.FC = () => {
           name={selectedUser.name}
           username={selectedUser.username}
           address={selectedUser.address}
-          photos={photos}
+          photos={photos} // Pass the fetched photos to CustomerDetails
         />
       )}
     </div>

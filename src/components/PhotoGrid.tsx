@@ -15,4 +15,3 @@ const PhotoGrid: React.FC<PhotoGridProps> = ({ photos }) => {
 };
 
 export default PhotoGrid;
-
