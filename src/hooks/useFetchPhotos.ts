@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const UNSPLASH_ACCESS_KEY = "jIJMABRw_nkbxIova3qHtQP--XbTeBoa6y8z4P4KUTM";
+const UNSPLASH_ACCESS_KEY = "BG1X36wLXxkcEaHvtXN5mxA2Y9sBy7JNmhtnlART9oU";
 
 const useFetchPhotos = (customerId: number | null) => {
   const [photos, setPhotos] = useState<string[]>([]);
