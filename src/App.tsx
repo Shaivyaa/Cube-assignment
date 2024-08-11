@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import CustomerList from './components/CustomerList';
+import CustomerDetails from './components/CustomerDetails';
+import useFetchUsers from './hooks/useFetchUsers';
+import useFetchPhotos from './hooks/useFetchPhotos';
+import './styles/App.css';
 
-function App() {
+const App: React.FC = () => {
+  const { users, loading } = useFetchUsers();
+  const photos = useFetchPhotos();
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+
+  const selectedUser = selectedUserId !== null
+    ? users.find(user => user.id === selectedUserId)
+    : null;
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <CustomerList
+        customers={users.map(user => ({
+          id: user.id,
+          name: user.name,
+          username: user.username
+        }))}
+        selectedCustomerId={selectedUserId}
+        onSelect={setSelectedUserId}
+      />
+      {selectedUser && (
+        <CustomerDetails
+          name={selectedUser.name}
+          username={selectedUser.username}
+          address={selectedUser.address}
+          photos={photos}
+        />
+      )}
     </div>
   );
-}
+};
 
 export default App;
